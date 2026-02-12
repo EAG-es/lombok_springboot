@@ -1,0 +1,15 @@
+inser\spring\lombok_springboot\inventory\config\NullSafetyConfig.class
+inser\spring\lombok_springboot\inventory\controller\InventoryController.class
+inser\spring\lombok_springboot\inventory\service\package-info.class
+inser\spring\lombok_springboot\inventory\service\InventoryService.class
+inser\spring\lombok_springboot\inventory\dto\InventoryDTO.class
+inser\spring\lombok_springboot\inventory\exception\ErrorResponse.class
+inser\spring\lombok_springboot\inventory\exception\GlobalExceptionHandler.class
+inser\spring\lombok_springboot\inventory\exception\ErrorResponse$ErrorResponseBuilder.class
+inser\spring\lombok_springboot\inventory\model\Inventory$InventoryBuilder.class
+inser\spring\lombok_springboot\inventory\dto\InventoryDTO$InventoryDTOBuilder.class
+inser\spring\lombok_springboot\inventory\InventoryApplication.class
+inser\spring\lombok_springboot\inventory\service\InventoryServiceImpl.class
+inser\spring\lombok_springboot\inventory\model\Inventory.class
+inser\spring\lombok_springboot\inventory\controller\package-info.class
+inser\spring\lombok_springboot\inventory\repository\InventoryRepository.class
