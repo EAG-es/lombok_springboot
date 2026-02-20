@@ -1,0 +1,16 @@
+<header class="header">
+    <div class="header-content">
+        <div class="header-logo-title">
+            <img src="/images/{{serviceKey}}_thumbnail.png" alt="logo" class="header-logo">
+            <h1>{{serviceName}}</h1>
+        </div>
+        <nav>
+            <form action="" method="get">
+                <select name="lang" onchange="this.form.submit()">
+                    <option value="en" {{#isEn}}selected{{/isEn}}>English</option>
+                    <option value="es" {{#isEs}}selected{{/isEs}}>Español</option>
+                </select>
+            </form>
+        </nav>
+    </div>
+</header>

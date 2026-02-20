@@ -1,0 +1,39 @@
+package inser.spring.lombok_springboot.order.controller;
+
+import lombok.RequiredArgsConstructor;
+import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import java.util.Locale;
+
+@Controller
+@RequiredArgsConstructor
+public class OrderViewController {
+
+    private final MessageSource messageSource;
+
+    @GetMapping("/")
+    public String index(Model model) {
+        Locale locale = LocaleContextHolder.getLocale();
+
+        model.addAttribute("pageTitle", messageSource.getMessage("page.title", null, locale));
+        model.addAttribute("serviceName", messageSource.getMessage("service.name", null, locale));
+        model.addAttribute("welcomeMessage", messageSource.getMessage("welcome.message", null, locale));
+        model.addAttribute("serviceDescription", messageSource.getMessage("service.description", null, locale));
+        model.addAttribute("serviceKey", "order");
+        model.addAttribute("lang", locale.getLanguage());
+        model.addAttribute("isEn", locale.getLanguage().equals("en"));
+        model.addAttribute("isEs", locale.getLanguage().equals("es"));
+
+        String serviceName = messageSource.getMessage("service.name", null, locale);
+        model.addAttribute("opsTitle", messageSource.getMessage("ops.title", new Object[] { serviceName }, locale));
+        model.addAttribute("opsCreate", messageSource.getMessage("ops.create", null, locale));
+        model.addAttribute("opsRead", messageSource.getMessage("ops.read", null, locale));
+        model.addAttribute("opsUpdate", messageSource.getMessage("ops.update", null, locale));
+        model.addAttribute("opsDelete", messageSource.getMessage("ops.delete", null, locale));
+
+        return "index";
+    }
+}

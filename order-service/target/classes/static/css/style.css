@@ -1,0 +1,133 @@
+:root {
+    --bg-color: #ffffff;
+    --text-color: #000000;
+    --primary-color: #333333;
+}
+
+body {
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.header {
+    background-color: #000;
+    color: #fff;
+    padding: 1rem 2rem;
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.header-logo-title {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.header-logo {
+    height: 40px;
+    width: auto;
+    border-radius: 4px;
+}
+
+.container {
+    flex: 1;
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 2rem;
+}
+
+.hero {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    align-items: center;
+    margin-bottom: 3rem;
+    background: #f9f9f9;
+    padding: 2rem;
+    border-radius: 12px;
+}
+
+.hero-image img {
+    max-width: 100%;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.react-component {
+    padding: 2rem;
+    background: #fff;
+    border: 1px solid #eee;
+    border-radius: 12px;
+    margin-top: 2rem;
+}
+
+.footer {
+    background: #000;
+    color: #fff;
+    text-align: center;
+    padding: 1rem;
+    margin-top: auto;
+}
+
+/* Themes */
+.theme-inventory {
+    --primary-color: #ff6a00;
+}
+
+.theme-inventory .header {
+    border-bottom: 4px solid #ff6a00;
+}
+
+.theme-inventory h1,
+.theme-inventory h2,
+.theme-inventory h3 {
+    color: #ff6a00;
+}
+
+.theme-order {
+    --primary-color: #2ecc71;
+}
+
+.theme-order .header {
+    border-bottom: 4px solid #2ecc71;
+}
+
+.theme-order h1,
+.theme-order h2,
+.theme-order h3 {
+    color: #2ecc71;
+}
+
+.theme-product {
+    --primary-color: #9b59b6;
+}
+
+.theme-product .header {
+    border-bottom: 4px solid #9b59b6;
+}
+
+.theme-product h1,
+.theme-product h2,
+.theme-product h3 {
+    color: #9b59b6;
+}
+
+select {
+    padding: 0.5rem;
+    border-radius: 4px;
+    background: #333;
+    color: #fff;
+    border: 1px solid #444;
+}

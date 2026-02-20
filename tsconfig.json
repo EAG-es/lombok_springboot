@@ -1,0 +1,19 @@
+{
+    "compilerOptions": {
+        "target": "ES2020",
+        "module": "ESNext",
+        "moduleResolution": "node",
+        "jsx": "react-jsx",
+        "strict": true,
+        "esModuleInterop": true,
+        "skipLibCheck": true,
+        "forceConsistentCasingInFileNames": true,
+        "allowSyntheticDefaultImports": true,
+        "baseUrl": "."
+    },
+    "include": [
+        "product-service/src/main/resources/static/js/**/*",
+        "inventory-service/src/main/resources/static/js/**/*",
+        "order-service/src/main/resources/static/js/**/*"
+    ]
+}
