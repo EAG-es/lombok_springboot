@@ -2,7 +2,6 @@ package inser.spring.lombok_springboot.inventory.integration;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import inser.spring.lombok_springboot.inventory.dto.InventoryDTO;
-import inser.spring.lombok_springboot.inventory.repository.InventoryRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +18,7 @@ import static org.hamcrest.Matchers.*;
 @SpringBootTest
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
+@org.springframework.test.context.jdbc.Sql(scripts = "/test-data.sql", executionPhase = org.springframework.test.context.jdbc.Sql.ExecutionPhase.BEFORE_TEST_METHOD)
 @SuppressWarnings("null")
 public class InventoryIntegrationTest {
 
@@ -26,14 +26,10 @@ public class InventoryIntegrationTest {
     private MockMvc mockMvc;
 
     @Autowired
-    private InventoryRepository inventoryRepository;
-
-    @Autowired
     private ObjectMapper objectMapper;
 
     @BeforeEach
     void setup() {
-        inventoryRepository.deleteAll();
     }
 
     @Test

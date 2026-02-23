@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: inser.spring.lombok_springboot.order.integration.OrderIntegrationTest
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 5.424 s -- in inser.spring.lombok_springboot.order.integration.OrderIntegrationTest

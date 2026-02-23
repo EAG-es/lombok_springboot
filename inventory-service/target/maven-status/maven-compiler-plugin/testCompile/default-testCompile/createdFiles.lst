@@ -1,2 +1,4 @@
-inser\spring\lombok_springboot\inventory\integration\InventoryIntegrationTest.class
 inser\spring\lombok_springboot\inventory\model\InventoryTest.class
+inser\spring\lombok_springboot\inventory\ui\IndexPagePlaywrightTest.class
+inser\spring\lombok_springboot\inventory\dto\InventoryDTOTest.class
+inser\spring\lombok_springboot\inventory\integration\InventoryIntegrationTest.class

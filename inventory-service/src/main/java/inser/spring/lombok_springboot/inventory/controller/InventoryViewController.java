@@ -2,7 +2,6 @@ package inser.spring.lombok_springboot.inventory.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.MessageSource;
-import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,8 +14,7 @@ public class InventoryViewController {
     private final MessageSource messageSource;
 
     @GetMapping("/")
-    public String index(Model model) {
-        Locale locale = LocaleContextHolder.getLocale();
+    public String index(Model model, Locale locale) {
 
         model.addAttribute("pageTitle", messageSource.getMessage("page.title", null, locale));
         model.addAttribute("serviceName", messageSource.getMessage("service.name", null, locale));

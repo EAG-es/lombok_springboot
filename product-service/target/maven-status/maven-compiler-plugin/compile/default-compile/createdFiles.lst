@@ -12,6 +12,8 @@ inser\spring\lombok_springboot\product\model\Product$ProductBuilder.class
 inser\spring\lombok_springboot\product\exception\ErrorResponse$ErrorResponseBuilder.class
 inser\spring\lombok_springboot\product\dto\ProductDTO$ProductDTOBuilder.class
 inser\spring\lombok_springboot\product\service\package-info.class
+inser\spring\lombok_springboot\product\controller\ProductViewController.class
 inser\spring\lombok_springboot\product\service\ProductServiceImpl.class
 inser\spring\lombok_springboot\product\exception\ErrorResponse.class
 inser\spring\lombok_springboot\product\model\Product.class
+inser\spring\lombok_springboot\product\config\WebConfig.class

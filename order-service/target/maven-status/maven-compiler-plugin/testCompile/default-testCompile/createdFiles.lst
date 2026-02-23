@@ -1,2 +1,4 @@
+inser\spring\lombok_springboot\order\ui\IndexPagePlaywrightTest.class
 inser\spring\lombok_springboot\order\model\OrderTest.class
+inser\spring\lombok_springboot\order\dto\OrderDTOTest.class
 inser\spring\lombok_springboot\order\integration\OrderIntegrationTest.class

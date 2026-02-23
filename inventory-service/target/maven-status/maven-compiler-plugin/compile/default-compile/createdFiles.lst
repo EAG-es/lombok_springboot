@@ -13,4 +13,5 @@ inser\spring\lombok_springboot\inventory\controller\InventoryViewController.clas
 inser\spring\lombok_springboot\inventory\model\Inventory$InventoryBuilder.class
 inser\spring\lombok_springboot\inventory\model\Inventory.class
 inser\spring\lombok_springboot\inventory\controller\package-info.class
+inser\spring\lombok_springboot\inventory\config\WebConfig.class
 inser\spring\lombok_springboot\inventory\repository\InventoryRepository.class

@@ -1,0 +1,36 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Debug Product Service (Docker)",
+            "request": "attach",
+            "hostName": "localhost",
+            "port": 5005
+        },
+        {
+            "type": "java",
+            "name": "Debug Inventory Service (Docker)",
+            "request": "attach",
+            "hostName": "localhost",
+            "port": 5006
+        },
+        {
+            "type": "java",
+            "name": "Debug Order Service (Docker)",
+            "request": "attach",
+            "hostName": "localhost",
+            "port": 5007
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-InventoryApplication<inventory-service>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "inser.spring.lombok_springboot.inventory.InventoryApplication",
+            "projectName": "inventory-service",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}

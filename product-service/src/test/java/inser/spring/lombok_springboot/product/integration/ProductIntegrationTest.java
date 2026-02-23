@@ -2,7 +2,6 @@ package inser.spring.lombok_springboot.product.integration;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import inser.spring.lombok_springboot.product.dto.ProductDTO;
-import inser.spring.lombok_springboot.product.repository.ProductRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +19,7 @@ import static org.hamcrest.Matchers.*;
 @SpringBootTest
 @AutoConfigureMockMvc
 @org.springframework.test.context.ActiveProfiles("test")
+@org.springframework.test.context.jdbc.Sql(scripts = "/test-data.sql", executionPhase = org.springframework.test.context.jdbc.Sql.ExecutionPhase.BEFORE_TEST_METHOD)
 @SuppressWarnings("null")
 public class ProductIntegrationTest {
 
@@ -27,14 +27,10 @@ public class ProductIntegrationTest {
     private MockMvc mockMvc;
 
     @Autowired
-    private ProductRepository productRepository;
-
-    @Autowired
     private ObjectMapper objectMapper;
 
     @BeforeEach
     void setup() {
-        productRepository.deleteAll();
     }
 
     @Test
@@ -54,7 +50,7 @@ public class ProductIntegrationTest {
 
         mockMvc.perform(get("/products"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$", hasSize(1)))
-                .andExpect(jsonPath("$[0].name", is("Test Product")));
+                .andExpect(jsonPath("$", hasSize(2)))
+                .andExpect(jsonPath("$[1].name", is("Test Product")));
     }
 }

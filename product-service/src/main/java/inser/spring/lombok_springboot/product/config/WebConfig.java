@@ -6,8 +6,7 @@ import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
-import org.springframework.web.servlet.i18n.SessionLocaleResolver;
-
+import org.springframework.web.servlet.i18n.CookieLocaleResolver;
 import java.util.Locale;
 
 @Configuration
@@ -16,9 +15,9 @@ public class WebConfig implements WebMvcConfigurer {
     @Bean
     @org.springframework.lang.NonNull
     public LocaleResolver localeResolver() {
-        SessionLocaleResolver slr = new SessionLocaleResolver();
-        slr.setDefaultLocale(new Locale("en"));
-        return slr;
+        CookieLocaleResolver clr = new CookieLocaleResolver("lang");
+        clr.setDefaultLocale(Locale.ENGLISH);
+        return clr;
     }
 
     @Bean
