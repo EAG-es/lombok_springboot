@@ -24,6 +24,7 @@ public class ProductViewController {
         model.addAttribute("lang", locale.getLanguage());
         model.addAttribute("isEn", locale.getLanguage().equals("en"));
         model.addAttribute("isEs", locale.getLanguage().equals("es"));
+        model.addAttribute("isProduct", true);
 
         String serviceName = messageSource.getMessage("service.name", null, locale);
         model.addAttribute("opsTitle", messageSource.getMessage("ops.title", new Object[] { serviceName }, locale));

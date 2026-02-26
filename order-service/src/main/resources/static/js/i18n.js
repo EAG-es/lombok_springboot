@@ -1,0 +1,42 @@
+window.i18n = {
+    en: {
+        opsTitle: "Service Operations",
+        labelId: "ID",
+        labelOrderNumber: "Order Number",
+        labelProductId: "Product ID",
+        labelQuantity: "Quantity",
+        labelTotalPrice: "Total Price",
+        placeholderId: "Enter ID...",
+        placeholderOrderNumber: "Enter order number...",
+        placeholderProductId: "Enter product ID...",
+        placeholderQuantity: "Enter quantity...",
+        placeholderTotalPrice: "Enter total price...",
+        labelLoading: "Loading...",
+        btnCreate: "Create",
+        btnRead: "Read",
+        btnUpdate: "Update",
+        btnDelete: "Delete",
+        msgSuccess: "Form submitted successfully via {0}",
+        msgPrompt: "Please fill the form and select an action."
+    },
+    es: {
+        opsTitle: "Operaciones del Servicio",
+        labelId: "ID",
+        labelOrderNumber: "Número de Orden",
+        labelProductId: "ID del Producto",
+        labelQuantity: "Cantidad",
+        labelTotalPrice: "Precio Total",
+        placeholderId: "Ingrese ID...",
+        placeholderOrderNumber: "Ingrese número de orden...",
+        placeholderProductId: "Ingrese ID del producto...",
+        placeholderQuantity: "Ingrese cantidad...",
+        placeholderTotalPrice: "Ingrese precio total...",
+        labelLoading: "Cargando...",
+        btnCreate: "Crear",
+        btnRead: "Leer",
+        btnUpdate: "Actualizar",
+        btnDelete: "Borrar",
+        msgSuccess: "Formulario enviado con éxito vía {0}",
+        msgPrompt: "Por favor complete el formulario y seleccione una acción."
+    }
+};

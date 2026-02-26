@@ -23,34 +23,40 @@ import static org.hamcrest.Matchers.*;
 @SuppressWarnings("null")
 public class ProductIntegrationTest {
 
-    @Autowired
-    private MockMvc mockMvc;
+        @Autowired
+        private MockMvc mockMvc;
 
-    @Autowired
-    private ObjectMapper objectMapper;
+        @Autowired
+        private ObjectMapper objectMapper;
 
-    @BeforeEach
-    void setup() {
-    }
+        @BeforeEach
+        void setup() {
+        }
 
-    @Test
-    public void testCreateAndGetProduct() throws Exception {
-        ProductDTO productDTO = ProductDTO.builder()
-                .name("Test Product")
-                .description("Test Description")
-                .price(new BigDecimal("99.99"))
-                .build();
+        @Test
+        public void testCreateAndGetProduct() throws Exception {
+                ProductDTO productDTO = ProductDTO.builder()
+                                .name("Test Product")
+                                .description("Test Description")
+                                .price("99.99")
+                                .build();
 
-        mockMvc.perform(post("/products")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(productDTO)))
-                .andExpect(status().isCreated())
-                .andExpect(jsonPath("$.name", is("Test Product")))
-                .andExpect(jsonPath("$.price", is(99.99)));
+                mockMvc.perform(post("/products")
+                                .header("X-Location", "US")
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(objectMapper.writeValueAsString(productDTO)))
+                                .andExpect(status().isCreated())
+                                .andExpect(jsonPath("$.name", is("Test Product")))
+                                .andExpect(jsonPath("$.price", is("99.99")));
 
-        mockMvc.perform(get("/products"))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$", hasSize(2)))
-                .andExpect(jsonPath("$[1].name", is("Test Product")));
-    }
+                mockMvc.perform(get("/products")
+                                .header("X-Location", "US")
+                                .param("page", "0")
+                                .param("pageSize", "10")
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content("{}"))
+                                .andExpect(status().isOk())
+                                .andExpect(jsonPath("$.content", hasSize(2)))
+                                .andExpect(jsonPath("$.content[1].name", is("Test Product")));
+        }
 }

@@ -5,8 +5,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.math.BigDecimal;
-
 /**
  * Data Transfer Object for Product.
  * Facilitates communication between layers and API clients.
@@ -17,8 +15,8 @@ import java.math.BigDecimal;
 @Builder
 public class ProductDTO {
 
-    private Long id;
+    private String id;
     private String name;
     private String description;
-    private BigDecimal price;
+    private String price;
 }

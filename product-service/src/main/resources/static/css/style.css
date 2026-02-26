@@ -36,9 +36,61 @@ body {
 }
 
 .header-logo {
-    height: 40px;
+    height: 32px;
     width: auto;
     border-radius: 4px;
+}
+
+.header-nav {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
+.service-links {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.service-link {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    text-decoration: none;
+    color: #aaa;
+    font-size: 0.85rem;
+    transition: all 0.3s ease;
+    gap: 10px;
+    padding: 0.5rem 0.8rem;
+    border-radius: 6px;
+}
+
+.service-link img {
+    height: 24px;
+    width: 24px;
+    object-fit: cover;
+    border-radius: 4px;
+    filter: grayscale(100%);
+    opacity: 0.7;
+    transition: all 0.3s ease;
+}
+
+.service-link:hover,
+.service-link.active {
+    color: #fff;
+}
+
+.service-link:hover img,
+.service-link.active img {
+    filter: grayscale(0%);
+    opacity: 1;
+    transform: scale(1.1);
+}
+
+.service-link.active {
+    color: #fff;
+    background: rgba(255, 255, 255, 0.1);
+    border-bottom: 2px solid var(--primary-color);
 }
 
 .container {

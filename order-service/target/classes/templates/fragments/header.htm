@@ -1,11 +1,25 @@
 <header class="header">
     <div class="header-content">
         <div class="header-logo-title">
-            <img src="/images/{{serviceKey}}_thumbnail.png" alt="logo" class="header-logo">
+            <img src="/images/order_thumbnail.png" alt="logo" class="header-logo">
             <h1>{{serviceName}}</h1>
         </div>
-        <nav>
-            <form action="" method="get">
+        <nav class="header-nav">
+            <div class="service-links">
+                <a href="http://localhost:8081" class="service-link {{#isProduct}}active{{/isProduct}}">
+                    <img src="/images/product_thumbnail.png" alt="Products">
+                    <span>Products</span>
+                </a>
+                <a href="http://localhost:8082" class="service-link {{#isInventory}}active{{/isInventory}}">
+                    <img src="/images/inventory_thumbnail.png" alt="Inventory">
+                    <span>Inventory</span>
+                </a>
+                <a href="http://localhost:8083" class="service-link {{#isOrder}}active{{/isOrder}}">
+                    <img src="/images/order_thumbnail.png" alt="Orders">
+                    <span>Orders</span>
+                </a>
+            </div>
+            <form action="" method="get" class="lang-form">
                 <select name="lang" onchange="this.form.submit()">
                     <option value="en" {{#isEn}}selected{{/isEn}}>English</option>
                     <option value="es" {{#isEs}}selected{{/isEs}}>Español</option>

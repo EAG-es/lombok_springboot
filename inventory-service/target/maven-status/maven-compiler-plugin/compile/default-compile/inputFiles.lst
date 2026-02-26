@@ -1,8 +1,10 @@
 C:\Users\Emilio\proyectos\java\lombok_springboot\inventory-service\src\main\java\inser\spring\lombok_springboot\inventory\config\NullSafetyConfig.java
+C:\Users\Emilio\proyectos\java\lombok_springboot\inventory-service\src\main\java\inser\spring\lombok_springboot\inventory\config\SecurityConfig.java
 C:\Users\Emilio\proyectos\java\lombok_springboot\inventory-service\src\main\java\inser\spring\lombok_springboot\inventory\config\WebConfig.java
 C:\Users\Emilio\proyectos\java\lombok_springboot\inventory-service\src\main\java\inser\spring\lombok_springboot\inventory\controller\InventoryController.java
 C:\Users\Emilio\proyectos\java\lombok_springboot\inventory-service\src\main\java\inser\spring\lombok_springboot\inventory\controller\InventoryViewController.java
 C:\Users\Emilio\proyectos\java\lombok_springboot\inventory-service\src\main\java\inser\spring\lombok_springboot\inventory\controller\package-info.java
+C:\Users\Emilio\proyectos\java\lombok_springboot\inventory-service\src\main\java\inser\spring\lombok_springboot\inventory\controller\SecurityControllerAdvice.java
 C:\Users\Emilio\proyectos\java\lombok_springboot\inventory-service\src\main\java\inser\spring\lombok_springboot\inventory\dto\InventoryDTO.java
 C:\Users\Emilio\proyectos\java\lombok_springboot\inventory-service\src\main\java\inser\spring\lombok_springboot\inventory\exception\ErrorResponse.java
 C:\Users\Emilio\proyectos\java\lombok_springboot\inventory-service\src\main\java\inser\spring\lombok_springboot\inventory\exception\GlobalExceptionHandler.java

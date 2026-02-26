@@ -5,80 +5,56 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{pageTitle}}</title>
-    <!-- Bootstrap CSS -->
+    <link rel="icon" type="image/png" href="/images/{{serviceKey}}_thumbnail.png">
+
+    <!-- CSRF Meta Tags (Populated by Spring Security when active) -->
+    {{#_csrf}}
+    <meta name="_csrf" content="{{token}}">
+    <meta name="_csrf_header" content="{{headerName}}">
+    {{/_csrf}}
+
+    <!-- CSS Dependencies -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/css/style.css">
 
-    <!-- React & Babel -->
+    <!-- React Dependencies -->
     <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <!-- App Logic -->
+    <script src="/js/i18n.js"></script>
+    <script type="text/babel" src="/js/components/OperationPanel.tsx"></script>
 </head>
 
 <body class="theme-{{serviceKey}}">
     {{>fragments/header}}
 
     <main class="container mt-4">
-        <section class="hero shadow-sm p-4 mb-5 bg-body rounded d-flex align-items-center justify-content-between">
+        <section
+            class="hero shadow-sm p-4 mb-5 bg-body rounded d-flex align-items-center justify-content-between animate__animated animate__fadeIn">
             <div class="hero-text">
                 <h2 class="display-5 fw-bold">{{welcomeMessage}}</h2>
                 <p class="lead text-muted">{{serviceDescription}}</p>
             </div>
             <div class="hero-image">
                 <img src="/images/{{serviceKey}}_thumbnail.png" alt="{{serviceName}} thumbnail" id="thumbnail"
-                    class="img-fluid rounded shadow" style="max-height: 200px;">
+                    class="img-fluid rounded shadow" style="max-height: 120px;">
             </div>
         </section>
 
         <!-- React Mount Point -->
-        <div id="react-root"></div>
+        <div id="react-root" class="animate__animated animate__fadeInUp animate__delay-1s"></div>
     </main>
 
     {{>fragments/footer}}
 
-    <!-- React Logic -->
-    <script type="text/babel">
-        // Placeholder for future TSX components
-        const CreateOp = () => <div className="p-4 border rounded bg-light"><h4>Component: Create</h4><p>Form to create a new item will go here.</p></div>;
-        const ReadOp = () => <div className="p-4 border rounded bg-light"><h4>Component: Read</h4><p>List or details search will go here.</p></div>;
-        const UpdateOp = () => <div className="p-4 border rounded bg-light"><h4>Component: Update</h4><p>Form to edit existing items will go here.</p></div>;
-        const DeleteOp = () => <div className="p-4 border rounded bg-light"><h4>Component: Delete</h4><p>Interface to remove items will go here.</p></div>;
-
-        const App = () => {
-            const [activeOp, setActiveOp] = React.useState(null);
-
-            const renderComponent = () => {
-                switch (activeOp) {
-                    case 'create': return <CreateOp />;
-                    case 'read': return <ReadOp />;
-                    case 'update': return <UpdateOp />;
-                    case 'delete': return <DeleteOp />;
-                    default: return <div className="alert alert-info text-center">Select an operation to begin.</div>;
-                }
-            };
-
-            return (
-                <div className="card shadow-lg border-0 mb-5">
-                    <div className="card-header bg-dark text-white d-flex justify-content-between align-items-center px-4 py-3">
-                        <h4 className="mb-0">{{ opsTitle }}</h4>
-                    </div>
-                    <div className="card-body p-4">
-                        <div className="d-flex gap-3 mb-4 justify-content-center">
-                            <button className={`btn btn-lg ${activeOp === 'create' ? 'btn-primary' : 'btn-outline-primary'}`} onClick={() => setActiveOp('create')}>{{ opsCreate }}</button>
-                            <button className={`btn btn-lg ${activeOp === 'read' ? 'btn-success' : 'btn-outline-success'}`} onClick={() => setActiveOp('read')}>{{ opsRead }}</button>
-                            <button className={`btn btn-lg ${activeOp === 'update' ? 'btn-warning' : 'btn-outline-warning'}`} onClick={() => setActiveOp('update')}>{{ opsUpdate }}</button>
-                            <button className={`btn btn-lg ${activeOp === 'delete' ? 'btn-danger' : 'btn-outline-danger'}`} onClick={() => setActiveOp('delete')}>{{ opsDelete }}</button>
-                        </div>
-                        <div className="transition-container shadow-sm p-3">
-                            {renderComponent()}
-                        </div>
-                    </div>
-                </div>
-            );
-        };
-
+    <!-- React Initialization -->
+    <script type="text/babel" data-presets="react,typescript">
         const root = ReactDOM.createRoot(document.getElementById('react-root'));
-        root.render(<App />);
+        root.render(<window.OperationPanel />);
     </script>
 
     <!-- Bootstrap JS -->

@@ -2,14 +2,20 @@
     "name": "lombok_springboot_frontend",
     "version": "1.0.0",
     "description": "Frontend dependencies for Spring Boot microservices",
+    "type": "module",
     "private": true,
     "devDependencies": {
-        "@types/react": "^19.0.0",
-        "@types/react-dom": "^19.0.0",
-        "typescript": "^5.7.0"
+        "@eslint/js": "^9.0.0",
+        "@types/react": "^19.2.14",
+        "@types/react-dom": "^19.2.3",
+        "@typescript-eslint/eslint-plugin": "^8.56.1",
+        "@typescript-eslint/parser": "^8.56.1",
+        "eslint": "^10.0.2",
+        "globals": "^15.0.0",
+        "typescript": "^5.9.3"
     },
     "dependencies": {
-        "react": "^19.0.0",
-        "react-dom": "^19.0.0"
+        "react": "^19.2.4",
+        "react-dom": "^19.2.4"
     }
 }

@@ -1,8 +1,11 @@
+C:\Users\Emilio\proyectos\java\lombok_springboot\product-service\src\main\java\innui\utils\Numbers.java
 C:\Users\Emilio\proyectos\java\lombok_springboot\product-service\src\main\java\inser\spring\lombok_springboot\product\config\NullSafetyConfig.java
+C:\Users\Emilio\proyectos\java\lombok_springboot\product-service\src\main\java\inser\spring\lombok_springboot\product\config\SecurityConfig.java
 C:\Users\Emilio\proyectos\java\lombok_springboot\product-service\src\main\java\inser\spring\lombok_springboot\product\config\WebConfig.java
 C:\Users\Emilio\proyectos\java\lombok_springboot\product-service\src\main\java\inser\spring\lombok_springboot\product\controller\package-info.java
 C:\Users\Emilio\proyectos\java\lombok_springboot\product-service\src\main\java\inser\spring\lombok_springboot\product\controller\ProductController.java
 C:\Users\Emilio\proyectos\java\lombok_springboot\product-service\src\main\java\inser\spring\lombok_springboot\product\controller\ProductViewController.java
+C:\Users\Emilio\proyectos\java\lombok_springboot\product-service\src\main\java\inser\spring\lombok_springboot\product\controller\SecurityControllerAdvice.java
 C:\Users\Emilio\proyectos\java\lombok_springboot\product-service\src\main\java\inser\spring\lombok_springboot\product\dto\ProductDTO.java
 C:\Users\Emilio\proyectos\java\lombok_springboot\product-service\src\main\java\inser\spring\lombok_springboot\product\exception\ErrorResponse.java
 C:\Users\Emilio\proyectos\java\lombok_springboot\product-service\src\main\java\inser\spring\lombok_springboot\product\exception\GlobalExceptionHandler.java
@@ -11,6 +14,8 @@ C:\Users\Emilio\proyectos\java\lombok_springboot\product-service\src\main\java\i
 C:\Users\Emilio\proyectos\java\lombok_springboot\product-service\src\main\java\inser\spring\lombok_springboot\product\model\Product.java
 C:\Users\Emilio\proyectos\java\lombok_springboot\product-service\src\main\java\inser\spring\lombok_springboot\product\ProductApplication.java
 C:\Users\Emilio\proyectos\java\lombok_springboot\product-service\src\main\java\inser\spring\lombok_springboot\product\repository\ProductRepository.java
+C:\Users\Emilio\proyectos\java\lombok_springboot\product-service\src\main\java\inser\spring\lombok_springboot\product\repository\ProductRepositoryCustom.java
+C:\Users\Emilio\proyectos\java\lombok_springboot\product-service\src\main\java\inser\spring\lombok_springboot\product\repository\ProductRepositoryCustomImpl.java
 C:\Users\Emilio\proyectos\java\lombok_springboot\product-service\src\main\java\inser\spring\lombok_springboot\product\service\package-info.java
 C:\Users\Emilio\proyectos\java\lombok_springboot\product-service\src\main\java\inser\spring\lombok_springboot\product\service\ProductService.java
 C:\Users\Emilio\proyectos\java\lombok_springboot\product-service\src\main\java\inser\spring\lombok_springboot\product\service\ProductServiceImpl.java

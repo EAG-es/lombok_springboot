@@ -24,6 +24,39 @@
         },
         {
             "type": "java",
+            "name": "Product Service (H2)",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "inser.spring.lombok_springboot.product.ProductApplication",
+            "projectName": "product-service",
+            "args": "",
+            "vmArgs": "-Dspring.profiles.active=h2",
+            "envFile": "${workspaceFolder}/.env"
+        },
+        {
+            "type": "java",
+            "name": "Inventory Service (H2)",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "inser.spring.lombok_springboot.inventory.InventoryApplication",
+            "projectName": "inventory-service",
+            "args": "",
+            "vmArgs": "-Dspring.profiles.active=h2",
+            "envFile": "${workspaceFolder}/.env"
+        },
+        {
+            "type": "java",
+            "name": "Order Service (H2)",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "inser.spring.lombok_springboot.order.OrderApplication",
+            "projectName": "order-service",
+            "args": "",
+            "vmArgs": "-Dspring.profiles.active=h2",
+            "envFile": "${workspaceFolder}/.env"
+        },
+        {
+            "type": "java",
             "name": "Spring Boot-InventoryApplication<inventory-service>",
             "request": "launch",
             "cwd": "${workspaceFolder}",
@@ -31,6 +64,17 @@
             "projectName": "inventory-service",
             "args": "",
             "envFile": "${workspaceFolder}/.env"
+        }
+    ],
+    "compounds": [
+        {
+            "name": "All Services (H2)",
+            "configurations": [
+                "Product Service (H2)",
+                "Inventory Service (H2)",
+                "Order Service (H2)"
+            ],
+            "stopAll": true
         }
     ]
 }

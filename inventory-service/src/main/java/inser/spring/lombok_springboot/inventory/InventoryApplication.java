@@ -22,7 +22,8 @@ public class InventoryApplication {
      * @return The object if not null
      * @throws NullPointerException if obj is null
      */
-    public static <T> T ensureNonNull(T obj) {
+    @org.springframework.lang.NonNull
+    public static <T> T ensureNonNull(@org.springframework.lang.Nullable T obj) {
         return Objects.requireNonNull(obj);
     }
 }
