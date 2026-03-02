@@ -8,5 +8,5 @@ import org.springframework.stereotype.Repository;
  * Repository interface for Order entity.
  */
 @Repository
-public interface OrderRepository extends JpaRepository<Order, Long> {
+public interface OrderRepository extends JpaRepository<Order, Long>, OrderRepositoryCustom {
 }

@@ -22,32 +22,44 @@ import static org.hamcrest.Matchers.*;
 @SuppressWarnings("null")
 public class InventoryIntegrationTest {
 
-    @Autowired
-    private MockMvc mockMvc;
+        @Autowired
+        private MockMvc mockMvc;
 
-    @Autowired
-    private ObjectMapper objectMapper;
+        @Autowired
+        private ObjectMapper objectMapper;
 
-    @BeforeEach
-    void setup() {
-    }
+        @BeforeEach
+        void setup() {
+        }
 
-    @Test
-    public void testUpdateAndGetStock() throws Exception {
-        InventoryDTO inventoryDTO = InventoryDTO.builder()
-                .productId(1L)
-                .quantity(100)
-                .build();
+        @Test
+        public void testCreateAndGetInventory() throws Exception {
+                InventoryDTO inventoryDTO = InventoryDTO.builder()
+                                .productId("101")
+                                .quantity("100")
+                                .build();
 
-        mockMvc.perform(post("/inventory")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(inventoryDTO)))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.productId", is(1)))
-                .andExpect(jsonPath("$.quantity", is(100)));
+                mockMvc.perform(post("/inventory")
+                                .header("X-Location", "US")
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(objectMapper.writeValueAsString(inventoryDTO)))
+                                .andExpect(status().isCreated())
+                                .andExpect(jsonPath("$.productId", is("101")))
+                                .andExpect(jsonPath("$.quantity", is("100")));
 
-        mockMvc.perform(get("/inventory/1"))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.quantity", is(100)));
-    }
+                mockMvc.perform(post("/inventory/select")
+                                .header("X-Location", "US")
+                                .param("page", "0")
+                                .param("pageSize", "10")
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content("{}"))
+                                .andExpect(status().isOk())
+                                .andExpect(jsonPath("$.content", hasSize(2)))
+                                .andExpect(jsonPath("$.content[1].productId", is("101")));
+
+                mockMvc.perform(get("/inventory/1")
+                                .header("X-Location", "US"))
+                                .andExpect(status().isOk())
+                                .andExpect(jsonPath("$.quantity", is("50")));
+        }
 }

@@ -53,6 +53,11 @@
             <artifactId>h2</artifactId>
             <scope>runtime</scope>
         </dependency>
+        <dependency>
+            <groupId>innui.modelos</groupId>
+            <artifactId>modelos</artifactId>
+            <version>1.0.0</version>
+        </dependency>
     </dependencies>
 
 </project>

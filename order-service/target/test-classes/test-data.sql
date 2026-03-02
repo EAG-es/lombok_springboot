@@ -6,4 +6,4 @@ INSERT INTO orders (
         quantity,
         total_price
     )
-VALUES (1, 'ORD-123', 1, 2, 100.00);
+VALUES (1, 'ORD-001', 1, 2, 100.00);

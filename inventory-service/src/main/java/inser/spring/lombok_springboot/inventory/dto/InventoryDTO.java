@@ -7,12 +7,15 @@ import lombok.NoArgsConstructor;
 
 /**
  * Data Transfer Object for Inventory.
+ * Facilitates communication between layers and API clients.
  */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 public class InventoryDTO {
-    private Long productId;
-    private Integer quantity;
+
+    private String id;
+    private String productId;
+    private String quantity;
 }

@@ -6,7 +6,7 @@ import org.springframework.data.web.config.EnableSpringDataWebSupport;
 
 import java.util.Objects;
 
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = { "inser.spring.lombok_springboot.product", "innui.utils" })
 @EnableSpringDataWebSupport(pageSerializationMode = EnableSpringDataWebSupport.PageSerializationMode.VIA_DTO)
 public class ProductApplication {
     public static void main(String[] args) {

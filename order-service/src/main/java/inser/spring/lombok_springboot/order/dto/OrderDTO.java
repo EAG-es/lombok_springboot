@@ -5,19 +5,18 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.math.BigDecimal;
-
 /**
  * Data Transfer Object for Order.
+ * Fields are Strings to simplify UI handling and avoid type conversion issues.
  */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 public class OrderDTO {
-    private Long id;
+    private String id;
     private String orderNumber;
-    private Long productId;
-    private Integer quantity;
-    private BigDecimal totalPrice;
+    private String productId;
+    private String quantity;
+    private String totalPrice;
 }

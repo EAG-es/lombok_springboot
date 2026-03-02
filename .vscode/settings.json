@@ -4,5 +4,6 @@
     "files.associations": {
         "*.mustache": "html",
         "*.htm": "html"
-    }
+    },
+    "java.configuration.updateBuildConfiguration": "interactive"
 }

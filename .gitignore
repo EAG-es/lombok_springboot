@@ -36,3 +36,6 @@ Desktop.ini
 # Spring Boot
 *.log
 *.gz
+1.txt
+build_out.txt
+out.txt

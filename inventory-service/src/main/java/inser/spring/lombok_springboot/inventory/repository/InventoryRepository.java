@@ -9,6 +9,6 @@ import java.util.Optional;
  * Repository interface for Inventory entity.
  */
 @Repository
-public interface InventoryRepository extends JpaRepository<Inventory, Long> {
+public interface InventoryRepository extends JpaRepository<Inventory, Long>, InventoryRepositoryCustom {
     Optional<Inventory> findByProductId(Long productId);
 }

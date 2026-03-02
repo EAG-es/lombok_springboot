@@ -8,9 +8,17 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.data.domain.Pageable;
+import org.springframework.context.i18n.LocaleContextHolder;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.web.PagedModel;
+
+import java.util.Locale;
 
 /**
  * REST Controller for Order Service.
+ * Provides endpoints for managing customer orders.
  */
 @RestController
 @RequestMapping("/orders")
@@ -20,40 +28,97 @@ public class OrderController {
 
     private final OrderService orderService;
 
-    /**
-     * Places a new order.
-     * 
-     * @param orderDTO The order data
-     * @return OrderDTO
-     */
-    @PostMapping
-    @Operation(summary = "Place a new order", description = "Creates a new order in the system")
-    public ResponseEntity<OrderDTO> placeOrder(@RequestBody OrderDTO orderDTO) {
-        return new ResponseEntity<>(orderService.placeOrder(orderDTO), HttpStatus.CREATED);
+    @PostMapping("/select")
+    @Operation(summary = "Get selected orders", description = "Retrieves a list of selected orders")
+    public ResponseEntity<PagedModel<OrderDTO>> getSelectedOrders(
+            @RequestBody OrderDTO orderDTO,
+            @RequestParam("page") int page,
+            @RequestParam("pageSize") int pageSize,
+            @RequestHeader(value = "X-Location", required = false) String location) {
+
+        // Set locale based on location
+        if (location != null && location.contains("lang=es")) {
+            LocaleContextHolder.setLocale(new Locale("es"));
+        } else {
+            LocaleContextHolder.setLocale(new Locale("en"));
+        }
+
+        Pageable pageable = PageRequest.of(page, pageSize);
+        Page<OrderDTO> pageResult = orderService.getSelectedOrders(orderDTO, pageable);
+        return ResponseEntity.ok(new PagedModel<>(pageResult));
     }
 
     /**
-     * Retrieves details of an order.
+     * Retrieves order details by ID.
      * 
      * @param id The ID of the order
-     * @return OrderDTO
      */
     @GetMapping("/{id}")
-    @Operation(summary = "Get order by ID", description = "Retrieves details of a specific order by its ID")
-    public ResponseEntity<OrderDTO> getOrderById(@PathVariable Long id) {
+    @Operation(summary = "Get order by ID", description = "Retrieves detailed information about an order by its ID")
+    public ResponseEntity<OrderDTO> getOrderById(@PathVariable Long id,
+            @RequestHeader(value = "X-Location", required = false) String location) {
+
+        if (location != null && location.contains("lang=es")) {
+            LocaleContextHolder.setLocale(new Locale("es"));
+        } else {
+            LocaleContextHolder.setLocale(new Locale("en"));
+        }
+
         return ResponseEntity.ok(orderService.getOrderById(id));
     }
 
     /**
-     * Cancels an order.
+     * Adds a new order.
      * 
-     * @param id The ID of the order to cancel
-     * @return ResponseEntity with no content
+     * @param orderDTO The order to add
+     */
+    @PostMapping
+    @Operation(summary = "Create a new order", description = "Adds a new order to the system")
+    public ResponseEntity<OrderDTO> createOrder(@RequestBody OrderDTO orderDTO,
+            @RequestHeader(value = "X-Location", required = false) String location) {
+
+        if (location != null && location.contains("lang=es")) {
+            LocaleContextHolder.setLocale(new Locale("es"));
+        } else {
+            LocaleContextHolder.setLocale(new Locale("en"));
+        }
+
+        return new ResponseEntity<>(orderService.createOrder(orderDTO), HttpStatus.CREATED);
+    }
+
+    /**
+     * Updates an existing order.
+     * 
+     * @param id       The ID of the order record
+     * @param orderDTO The updated order data
+     */
+    @PutMapping("/{id}")
+    public ResponseEntity<OrderDTO> updateOrder(@PathVariable Long id, @RequestBody OrderDTO orderDTO,
+            @RequestHeader(value = "X-Location", required = false) String location) {
+
+        if (location != null && location.contains("lang=es")) {
+            LocaleContextHolder.setLocale(new Locale("es"));
+        } else {
+            LocaleContextHolder.setLocale(new Locale("en"));
+        }
+
+        return ResponseEntity.ok(orderService.updateOrder(id, orderDTO));
+    }
+
+    /**
+     * Deletes an order record by ID.
      */
     @DeleteMapping("/{id}")
-    @Operation(summary = "Cancel an order", description = "Deletes an order from the system")
-    public ResponseEntity<Void> cancelOrder(@PathVariable Long id) {
-        orderService.cancelOrder(id);
+    public ResponseEntity<Void> deleteOrder(@PathVariable Long id,
+            @RequestHeader(value = "X-Location", required = false) String location) {
+
+        if (location != null && location.contains("lang=es")) {
+            LocaleContextHolder.setLocale(new Locale("es"));
+        } else {
+            LocaleContextHolder.setLocale(new Locale("en"));
+        }
+
+        orderService.deleteOrder(id);
         return ResponseEntity.noContent().build();
     }
 }

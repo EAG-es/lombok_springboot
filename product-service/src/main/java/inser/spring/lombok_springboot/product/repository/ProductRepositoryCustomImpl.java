@@ -10,6 +10,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import innui.utils.config.NullSafetyConfig;
 
 @Repository
 public class ProductRepositoryCustomImpl implements ProductRepositoryCustom {
@@ -34,9 +35,10 @@ public class ProductRepositoryCustomImpl implements ProductRepositoryCustom {
         Query query = entityManager.createNativeQuery(sql, Product.class);
         Query countQuery = entityManager.createNativeQuery(countSql);
 
+        @SuppressWarnings("unchecked")
         List<Product> result = query.getResultList();
         Long total = ((Number) countQuery.getSingleResult()).longValue();
 
-        return new PageImpl<Product>(result, pageable, total);
+        return new PageImpl<Product>(NullSafetyConfig.requireNonNull(result), pageable, total);
     }
 }

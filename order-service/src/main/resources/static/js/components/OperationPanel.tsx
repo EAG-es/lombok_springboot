@@ -1,13 +1,9 @@
-const React = (window as any).React;
-const { useState } = React;
-
-
 interface FormData {
     id: string;
-    order_number: string;
-    product_id: string;
+    orderNumber: string;
+    productId: string;
     quantity: string;
-    total_price: string;
+    totalPrice: string;
 }
 
 interface Translation {
@@ -17,6 +13,8 @@ interface Translation {
     labelProductId: string;
     labelQuantity: string;
     labelTotalPrice: string;
+    labelHelp: string;
+    helpText: string;
     placeholderId: string;
     placeholderOrderNumber: string;
     placeholderProductId: string;
@@ -27,68 +25,198 @@ interface Translation {
     btnRead: string;
     btnUpdate: string;
     btnDelete: string;
+    btnBack: string;
+    btnNext: string;
+    btnPrevious: string;
+    btnSelect: string;
     msgSuccess: string;
     msgPrompt: string;
+    countShowing: string;
 }
 
 // Global interface definitions for window properties
 interface CustomWindow extends Window {
     i18n: { [key: string]: Translation };
     OperationPanel: React.FC;
+    CreateOp: React.FC<any>;
+    UpdateOp: React.FC<any>;
+    DeleteOp: React.FC<any>;
+    ReadOp: React.FC<any>;
 }
 
-const getW = (): CustomWindow => (window as any);
-
 const OperationPanel: React.FC = () => {
-    const [formData, setFormData] = useState({ id: '', order_number: '', product_id: '', quantity: '', total_price: '' } as FormData);
-    const [status, setStatus] = useState(null as string | null);
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState(null as string | null);
+    const React = (window as any).React;
+    const [formData, setFormData] = React.useState({ id: '', orderNumber: '', productId: '', quantity: '', totalPrice: '' } as FormData);
+    const [status, setStatus] = React.useState(null as string | null);
+    const [loading, setLoading] = React.useState(false);
+    const [error, setError] = React.useState(null as string | null);
+    const [currentOp, setCurrentOp] = React.useState(null as 'create' | 'update' | 'delete' | 'read' | null);
+    const [showReadList, setShowReadList] = React.useState(false);
+    const [refreshKey, setRefreshKey] = React.useState(0);
+    const [savedPage, setSavedPage] = React.useState(0);
+    const [readSearch, setReadSearch] = React.useState({ id: '', orderNumber: '', productId: '', quantity: '', totalPrice: '' } as FormData);
+
     const lang = document.documentElement.lang || 'en';
-    const t = getW().i18n[lang] || getW().i18n.en;
+    const t = (window as any).i18n[lang] || (window as any).i18n.en;
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
         setFormData((prev: FormData) => ({ ...prev, [name]: value }));
     };
 
-    const handleSubmit = async (action: string) => {
-        setLoading(true);
-        setStatus(null);
+    const handleCreateSuccess = (createdOrder: any) => {
+        setFormData({
+            id: createdOrder.id,
+            orderNumber: createdOrder.orderNumber,
+            productId: createdOrder.productId,
+            quantity: createdOrder.quantity,
+            totalPrice: createdOrder.totalPrice
+        });
+        setStatus(t.msgSuccess.replace('{0}', 'CREATE'));
         setError(null);
-
-        const csrfToken = document.querySelector<HTMLMetaElement>('meta[name="_csrf"]')?.content;
-        const csrfHeader = document.querySelector<HTMLMetaElement>('meta[name="_csrf_header"]')?.content;
-
-        const payload = {
-            location: window.location.href,
-            service: document.body.className.replace('theme-', ''),
-            action: action,
-            data: formData
-        };
-
-        // Simulate async operation
-        setTimeout(() => {
-            console.log("Submitting to future endpoint:", payload);
-
-            // Simulation of CSRF header usage
-            if (csrfHeader && csrfToken) {
-                console.log(`Prepared with CSRF: ${csrfHeader}=${csrfToken}`);
-            }
-
-            // Simulate success or error
-            const isSuccess = action !== 'delete' || Math.random() > 0.5; // Delete has 50% error chance
-
-            setLoading(false);
-            if (isSuccess) {
-                setStatus(t.msgSuccess.replace('{0}', action.toUpperCase()));
-                setError(null);
-            } else {
-                setError(`Error occurred during ${action} operation.`);
-                setStatus(null);
-            }
-        }, 2000); // 2 seconds delay
+        if (showReadList) {
+            setRefreshKey((k: number) => k + 1);
+            setCurrentOp('read');
+        } else {
+            setCurrentOp(null);
+        }
     };
+
+    const handleCreateError = (errorMsg: string) => {
+        setError(errorMsg);
+        setStatus(null);
+        setCurrentOp(null);
+    };
+
+    const handleUpdateSuccess = () => {
+        setStatus(t.msgSuccess.replace('{0}', 'UPDATE'));
+        setError(null);
+        if (showReadList) {
+            setRefreshKey((k: number) => k + 1);
+            setCurrentOp('read');
+        } else {
+            setCurrentOp(null);
+        }
+    };
+
+    const handleUpdateError = (errorMsg: string) => {
+        setError(errorMsg);
+        setStatus(null);
+        setCurrentOp(null);
+    };
+
+    const handleDeleteSuccess = () => {
+        setStatus(t.msgSuccess.replace('{0}', 'DELETE'));
+        setError(null);
+        if (showReadList) {
+            setRefreshKey((k: number) => k + 1);
+            setCurrentOp('read');
+        } else {
+            setCurrentOp(null);
+        }
+    };
+
+    const handleDeleteError = (errorMsg: string) => {
+        setError(errorMsg);
+        setStatus(null);
+        setCurrentOp(null);
+    };
+
+    const handleReadSuccess = (selectedOrder: FormData, searchCriteria: FormData, page: number) => {
+        setSavedPage(page);
+        setReadSearch(searchCriteria);
+        setShowReadList(true);
+        setCurrentOp(null);
+    };
+
+    const handleReadListBack = (searchCriteria: FormData, page: number) => {
+        setSavedPage(page);
+        setReadSearch(searchCriteria);
+        setCurrentOp(null);
+    };
+
+    const handleReadError = (errorMsg: string) => {
+        setError(errorMsg);
+        setCurrentOp(null);
+    };
+
+    const handleSubmit = (action: string) => {
+        if (action === 'create') {
+            setCurrentOp('create');
+            return;
+        }
+        if (action === 'update') {
+            setCurrentOp('update');
+            return;
+        }
+        if (action === 'delete') {
+            setCurrentOp('delete');
+            return;
+        }
+        if (action === 'read') {
+            setReadSearch(formData);
+            setSavedPage(0);
+            setCurrentOp('read');
+            return;
+        }
+    };
+
+    const CreateOp = (window as any).CreateOp;
+    const UpdateOp = (window as any).UpdateOp;
+    const DeleteOp = (window as any).DeleteOp;
+    const ReadOp = (window as any).ReadOp;
+
+    if (currentOp === 'create') {
+        return (
+            <CreateOp
+                location={window.location.href}
+                orderDTO={formData}
+                onSuccess={handleCreateSuccess}
+                onError={handleCreateError}
+                lang={lang}
+            />
+        );
+    }
+
+    if (currentOp === 'update') {
+        return (
+            <UpdateOp
+                location={window.location.href}
+                orderDTO={formData}
+                onSuccess={handleUpdateSuccess}
+                onError={handleUpdateError}
+                lang={lang}
+            />
+        );
+    }
+
+    if (currentOp === 'delete') {
+        return (
+            <DeleteOp
+                location={window.location.href}
+                id={formData.id}
+                onSuccess={handleDeleteSuccess}
+                onError={handleDeleteError}
+                lang={lang}
+            />
+        );
+    }
+
+    if (currentOp === 'read') {
+        return (
+            <ReadOp
+                location={window.location.href}
+                orderDTO={readSearch}
+                setOrderDTO={setFormData}
+                onSuccess={handleReadSuccess}
+                onError={handleReadError}
+                onBack={handleReadListBack}
+                lang={lang}
+                refreshKey={refreshKey}
+                initialPage={savedPage}
+            />
+        );
+    }
 
     return (
         <div className="card shadow-lg border-0 mb-5">
@@ -96,6 +224,9 @@ const OperationPanel: React.FC = () => {
                 <h4 className="mb-0 text-center">{t.opsTitle}</h4>
             </div>
             <div className="card-body p-4">
+                <div className="alert alert-info mb-4">
+                    <strong><i className="bi bi-info-circle me-2"></i>{t.labelHelp}:</strong> {t.helpText}
+                </div>
                 <form className="mb-4" onSubmit={(e) => e.preventDefault()}>
                     <div className="row g-3">
                         <div className="col-md-2">
@@ -113,10 +244,10 @@ const OperationPanel: React.FC = () => {
                             <label className="form-label fw-bold">{t.labelOrderNumber}</label>
                             <input
                                 type="text"
-                                name="order_number"
+                                name="orderNumber"
                                 className="form-control"
                                 placeholder={t.placeholderOrderNumber}
-                                value={formData.order_number}
+                                value={formData.orderNumber}
                                 onChange={handleInputChange}
                             />
                         </div>
@@ -124,10 +255,10 @@ const OperationPanel: React.FC = () => {
                             <label className="form-label fw-bold">{t.labelProductId}</label>
                             <input
                                 type="text"
-                                name="product_id"
+                                name="productId"
                                 className="form-control"
                                 placeholder={t.placeholderProductId}
-                                value={formData.product_id}
+                                value={formData.productId}
                                 onChange={handleInputChange}
                             />
                         </div>
@@ -146,10 +277,10 @@ const OperationPanel: React.FC = () => {
                             <label className="form-label fw-bold">{t.labelTotalPrice}</label>
                             <input
                                 type="text"
-                                name="total_price"
+                                name="totalPrice"
                                 className="form-control"
                                 placeholder={t.placeholderTotalPrice}
-                                value={formData.total_price}
+                                value={formData.totalPrice}
                                 onChange={handleInputChange}
                             />
                         </div>
@@ -199,4 +330,4 @@ const OperationPanel: React.FC = () => {
     );
 };
 
-getW().OperationPanel = OperationPanel;
+(window as any).OperationPanel = OperationPanel;

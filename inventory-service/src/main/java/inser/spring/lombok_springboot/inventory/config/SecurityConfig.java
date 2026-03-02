@@ -15,6 +15,7 @@ public class SecurityConfig {
         http
                 .authorizeHttpRequests(auth -> auth
                         .anyRequest().permitAll())
+                .csrf(csrf -> csrf.ignoringRequestMatchers("/inventory/**"))
                 .formLogin(form -> form.disable())
                 .httpBasic(basic -> basic.disable());
 

@@ -1,15 +1,81 @@
-import React from 'react';
+interface OrderDTO {
+    id: string;
+    orderNumber: string;
+    productId: string;
+    quantity: string;
+    totalPrice: string;
+}
 
-const UpdateComponent: React.FC = () => {
-    return (
-        <div className="p-4 border border-warning rounded bg-light shadow-sm">
-            <h4 className="text-warning mb-3">Update Existing Item</h4>
-            <div className="input-group mb-3">
-                <input type="text" className="form-control" placeholder="Search by ID to update..." />
-                <button className="btn btn-warning">Find</button>
+interface UpdateOpProps {
+    location: string;
+    orderDTO: OrderDTO;
+    onSuccess: (result: any) => void;
+    onError: (error: string) => void;
+    lang: string;
+}
+
+const UpdateOp: React.FC<UpdateOpProps> = ({ location, orderDTO, onSuccess, onError, lang }) => {
+    const React = (window as any).React;
+    const [loading, setLoading] = React.useState(true);
+    const t = (window as any).i18n[lang] || (window as any).i18n.en;
+
+    const csrfToken = document.querySelector<HTMLMetaElement>('meta[name="_csrf"]')?.content;
+    const csrfHeaderName = document.querySelector<HTMLMetaElement>("meta[name='_csrf_header']")?.content;
+
+    React.useEffect(() => {
+        if (!orderDTO.id || !orderDTO.id.trim()) {
+            onError("Order ID is required to update.");
+            setLoading(false);
+            return;
+        }
+
+        const callEndpoint = async () => {
+            try {
+                const response = await fetch(`/orders/${orderDTO.id}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-Location': location,
+                        [csrfHeaderName || 'X-CSRF-TOKEN']: csrfToken || ''
+                    },
+                    body: JSON.stringify(orderDTO)
+                });
+
+                if (!response.ok) {
+                    const errorText = await response.text();
+                    let errorMsg = `HTTP Error ${response.status}: ${response.statusText}`;
+                    try {
+                        const errorJson = JSON.parse(errorText);
+                        errorMsg = errorJson.message || errorMsg;
+                    } catch (e) {
+                        errorMsg = errorText || errorMsg;
+                    }
+                    throw new Error(errorMsg);
+                }
+
+                const result = await response.json();
+                onSuccess(result);
+            } catch (error: any) {
+                onError(error.message);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        callEndpoint();
+    }, []);
+
+    if (loading) {
+        return (
+            <div className="card shadow-lg border-0 mb-5 text-center p-4">
+                <div className="alert alert-info border-0 shadow-sm">
+                    <strong><i className="bi bi-hourglass-split me-2"></i>{t.labelLoading}</strong>
+                </div>
             </div>
-        </div>
-    );
+        );
+    }
+
+    return null;
 };
 
-export default UpdateComponent;
+(window as any).UpdateOp = UpdateOp;

@@ -1,4 +1,8 @@
-package inser.spring.lombok_springboot.product.config;
+package innui.utils.config;
+
+import innui.utils.bundles.Bundles;
+import org.springframework.lang.NonNull;
+import org.springframework.lang.Nullable;
 
 /**
  * Centralized null safety configuration.
@@ -16,16 +20,12 @@ public class NullSafetyConfig {
      * @return The object if not null
      * @throws NullPointerException if obj is null
      */
-    @org.springframework.lang.NonNull
-    public static <T> T requireNonNull(@org.springframework.lang.Nullable T obj) {
-        try {
-            if (obj == null) {
-                throw new NullPointerException("Object must not be null");
-            }
-            return obj;
-        } catch (NullPointerException e) {
-            // Set breakpoint here to catch nullity issues during debugging
-            throw e;
+    @NonNull
+    public static <T> T requireNonNull(@Nullable T obj) {
+        if (obj == null) {
+            Bundles bundles = new Bundles();
+            throw new NullPointerException(bundles.getMessage("error.null.object"));
         }
+        return obj;
     }
 }

@@ -11,8 +11,6 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 
-import java.math.BigDecimal;
-
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.hamcrest.Matchers.*;
@@ -24,33 +22,40 @@ import static org.hamcrest.Matchers.*;
 @SuppressWarnings("null")
 public class OrderIntegrationTest {
 
-    @Autowired
-    private MockMvc mockMvc;
+        @Autowired
+        private MockMvc mockMvc;
 
-    @Autowired
-    private ObjectMapper objectMapper;
+        @Autowired
+        private ObjectMapper objectMapper;
 
-    @BeforeEach
-    void setup() {
-    }
+        @BeforeEach
+        void setup() {
+        }
 
-    @Test
-    public void testPlaceAndGetOrder() throws Exception {
-        OrderDTO orderDTO = OrderDTO.builder()
-                .productId(1L)
-                .quantity(5)
-                .totalPrice(new BigDecimal("500.00"))
-                .build();
+        @Test
+        public void testCreateAndGetOrder() throws Exception {
+                OrderDTO orderDTO = OrderDTO.builder()
+                                .productId("1")
+                                .quantity("5")
+                                .totalPrice("500.00")
+                                .build();
 
-        mockMvc.perform(post("/orders")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(orderDTO)))
-                .andExpect(status().isCreated())
-                .andExpect(jsonPath("$.orderNumber", notNullValue()))
-                .andExpect(jsonPath("$.productId", is(1)));
+                mockMvc.perform(post("/orders")
+                                .header("X-Location", "US")
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(objectMapper.writeValueAsString(orderDTO)))
+                                .andExpect(status().isCreated())
+                                .andExpect(jsonPath("$.orderNumber", notNullValue()))
+                                .andExpect(jsonPath("$.productId", is("1")));
 
-        mockMvc.perform(get("/orders/1"))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.productId", is(1)));
-    }
+                mockMvc.perform(post("/orders/select")
+                                .header("X-Location", "US")
+                                .param("page", "0")
+                                .param("pageSize", "10")
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content("{}"))
+                                .andExpect(status().isOk())
+                                .andExpect(jsonPath("$.content", hasSize(2)))
+                                .andExpect(jsonPath("$.content[1].productId", is("1")));
+        }
 }
